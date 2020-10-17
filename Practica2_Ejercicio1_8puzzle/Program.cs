@@ -21,7 +21,7 @@ namespace Practica2_Ejercicio1_8puzzle
             Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
             UninformedSearch ui = new UninformedSearch();
 
-            List<Node> solution = ui.BreadthFirstSearch(root);
+            List<Node> solution = ui.DeepFirstSearch(root);
             
             if(solution.Count>0)
             {
