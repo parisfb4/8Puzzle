@@ -41,6 +41,20 @@ namespace Practica2_Ejercicio1_8puzzle
             }
         }
 
+        public void ExpandNode()
+        {
+            for(int i = 0; i<puzzle.Length;i++)
+            {
+                if (puzzle[i] == 0)
+                    x = i;                         
+            }
+            
+            MoveToRigth(puzzle,x);
+            MoveToLEft(puzzle, x);
+            MoveToUp(puzzle, x);
+            MoveToDown(puzzle, x);
+        }
+
         //Funcion para verificar que la meta no ha llegado al final o si
         public bool GoalTest()
         {
@@ -74,13 +88,26 @@ namespace Practica2_Ejercicio1_8puzzle
             {
                 for(int j = 0; j < col; j++)
                 {
-                    Console.WriteLine(puzzle[m] + " ");
+                    Console.Write(puzzle[m] + " ");
                     m++;
                 }
                 Console.WriteLine();
             }
         }
 
+        public bool IsSamePuzzle(int[] p)
+        {
+            bool samePuzzle = true;
+            for(int i = 0; i < p.Length; i++)
+            {
+                if(puzzle[i] != p[i])
+                {
+                    samePuzzle = false;
+                }
+            }
+            return samePuzzle;
+
+        }
         #region Movimientos Derecha, Izquierda, Abajo y Arriba
         //Mover a la derecha y obtener hijos posibles
         public void MoveToRigth(int[] value, int index) //Recibe el puzle actual y el index del 0 o espacio en blanco
@@ -137,7 +164,7 @@ namespace Practica2_Ejercicio1_8puzzle
         }
 
         //Mover Abajo y obtener hijos posibles
-        public void ModeToDown(int[] value, int index) //Recibe el puzle actual y el index del 0 o espacio en blanco
+        public void MoveToDown(int[] value, int index) //Recibe el puzle actual y el index del 0 o espacio en blanco
         {
             if (index + col < puzzle.Length)
             {
@@ -145,7 +172,7 @@ namespace Practica2_Ejercicio1_8puzzle
                 CopyPuzzle(puzzle_auxiliar, value);
 
                 int temporal = puzzle_auxiliar[index + 3];
-                puzzle_auxiliar[index] = puzzle_auxiliar[index + 3];
+                puzzle_auxiliar[index +3] = puzzle_auxiliar[index];
                 puzzle_auxiliar[index] = temporal;
 
                 Node child = new Node(puzzle_auxiliar);

@@ -18,7 +18,24 @@ namespace Practica2_Ejercicio1_8puzzle
                 8,3,1
             };
 
-            Node Node_initial = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
+            Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
+            UninformedSearch ui = new UninformedSearch();
+
+            List<Node> solution = ui.BreadthFirstSearch(root);
+            
+            if(solution.Count>0)
+            {
+                Console.WriteLine("Solución encontrada");
+                for (int i = 0; i<solution.Count;i++)
+                {
+                    solution[i].PrintPuzzle();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No hay solución para este problema");                    
+            }
+            Console.Read();
         }
     }
 }
