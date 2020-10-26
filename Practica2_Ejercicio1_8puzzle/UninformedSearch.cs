@@ -104,6 +104,75 @@ namespace Practica2_Ejercicio1_8puzzle
 
             return PathToSolution;
         }
+
+        //Profundidad Iterativa
+        public List<Node> DeepFirstSearchIterative(Node root)
+        {
+            List<Node> PathToSolution = new List<Node>();
+            List<Node> OpenList = new List<Node>(); //Lista que se puede expandir
+            List<Node> ClosedList = new List<Node>(); //Las que ya fueron vistas y expandidas
+            bool goalFound = false; //Se llegó a la meta
+
+
+            int profundidad = 1;
+            Node currentNode = root;
+
+            while (!goalFound && profundidad < 3)
+            {
+                currentNode.ExpandNode(); //  Est_abiertos.inicializar()
+                OpenList.Add(root); //  Est_abiertos.insertar(Estado inicial)
+                currentNode = OpenList.Last(); //Actual ← Est_abiertos.primero()
+
+                while(!goalFound && OpenList.Count > 0) //  mientras no es_final?(Actual) y no Est_abiertos.vacia?() hacer
+                {
+                    OpenList.RemoveAt(OpenList.Count - 1);
+                    ClosedList.Add(currentNode);
+
+                    if(Profundidad(currentNode, root) < 3)
+                    {
+                        currentNode.ExpandNode();
+                        currentNode.PrintPuzzle();
+
+                        //INICIO
+                        for (int i = 0; i < currentNode.Children.Count; i++)
+                        {
+
+                            Node currentChild = currentNode.Children[i];
+
+                            //Aquí imprimiremos todos los estados
+
+                            if (currentChild.GoalTest())
+                            {
+                                Console.WriteLine("Goal Found.");
+                                goalFound = true;
+                                PathTrace(PathToSolution, currentChild);
+                                //Trace path to root node
+                            }
+
+                            //OpenList contiene currentChild && ClosedList contains currents child
+                            if (!Contains(OpenList, currentChild) && !Contains(ClosedList, currentChild))
+                            {
+                                OpenList.Add(currentChild);
+                            }
+
+                        }
+                        //FIN
+
+                        //OpenList.AddRange(currentNode.GetChildren());
+                    }
+                    if(OpenList.Count > 0)
+                    {
+                        currentNode = OpenList.Last();
+                    }
+                }
+                profundidad++;
+            }
+
+            return PathToSolution;
+        }
+
+
+
         public void PathTrace(List<Node> path , Node n)
         {
             Console.WriteLine("Tracin path...");
@@ -130,6 +199,21 @@ namespace Practica2_Ejercicio1_8puzzle
                 }
             }
             return contains;
+        }
+
+        //Retornar Profundidad 
+        public int Profundidad(Node current, Node root)
+        {
+            Node auxiliar = current;
+            int contador = 0;
+
+            while(auxiliar.Parent != null)
+            {                
+                auxiliar = auxiliar.Parent;
+                contador++;
+            }
+
+            return contador;
         }
     }
 }

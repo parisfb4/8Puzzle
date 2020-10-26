@@ -30,7 +30,7 @@ namespace Practica2_Ejercicio1_8puzzle
                         Profundidad();
                         break;
                     case 3:
-                        Console.WriteLine("Profundidad iterativa, (en proceso)");
+                        ProfundidadIterativa();
                         break;
                     case 4:
                         Console.WriteLine("Adios");
@@ -66,7 +66,8 @@ namespace Practica2_Ejercicio1_8puzzle
         public void Profundidad()
         {
             //Puzzle Inicial
-            int[] puzzle_initial = generarPuzzleAleatorio();
+            //int[] puzzle_initial = generarPuzzleAleatorio();
+            int[] puzzle_initial = {0,1,2,3,5,4,6,7,8};
 
             Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
             UninformedSearch ui = new UninformedSearch();
@@ -86,11 +87,36 @@ namespace Practica2_Ejercicio1_8puzzle
             }
         }
 
+        //Profundidad Interativa
+        public void ProfundidadIterativa()
+        {
+            //Puzzle Inicial
+            //int[] puzzle_initial = generarPuzzleAleatorio();
+            int[] puzzle_initial = { 1, 0, 2, 3, 5, 4, 6, 7, 8 };
+
+            Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
+            UninformedSearch ui = new UninformedSearch();
+
+            List<Node> solution = ui.DeepFirstSearchIterative(root);
+            if (solution.Count > 0)
+            {
+                Console.WriteLine("Solución encontrada");
+                for (int i = 0; i < solution.Count; i++)
+                {
+                    solution[i].PrintPuzzle();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No hay solución para este problema");
+            }
+        }
+
         public int[] generarPuzzleAleatorio()
         {
             int space = 9;
             Random rnd = new Random();
-            int[] number = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            //int[] number = { 0, 1, 2, 3, 4, 5, 6, 7, 8};
             List<int> numbersChosen = new List<int>();
             int[] tablero = new int[space];
 

@@ -13,7 +13,7 @@ namespace Practica2_Ejercicio1_8puzzle
     {
         #region Variables y Metodos
         private List<Node> children = new List<Node>();         //Lista para los nodos hijos que resultan al realizar un movimiento
-        private Node parent;                                    //Nodo padre 
+        private Node parent;                                    //Nodo padre
         private int[] puzzle = new int[9];                      //Arreglo del puzzle, o estructura actual
         private int x = 0;                                      //Indicador de posicion del 0
         private int col = 3;                                    //Posiciones del puzzle que es 3 x 3
@@ -31,6 +31,12 @@ namespace Practica2_Ejercicio1_8puzzle
             SetPuzzle(value); //Establecer el puzzle actual
         }
         #endregion
+
+        //Obtener hijos
+        public List<Node> GetChildren()
+        {
+            return children;
+        }
 
         //Funcion para copear el puzzle inicial a la clase para ser alamacenado
         public void SetPuzzle(int[] value)
