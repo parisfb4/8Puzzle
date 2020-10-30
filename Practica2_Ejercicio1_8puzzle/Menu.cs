@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Practica2_Ejercicio1_8puzzle
         public void mostrarMenu()
         {
             int opc = 0;
+            Stopwatch timerMeasure = new Stopwatch();
+
             do
             {
                 Console.WriteLine(" \t 8 puzzle - Algoritmos de búsqueda\n" +
@@ -24,13 +27,19 @@ namespace Practica2_Ejercicio1_8puzzle
                 switch(opc)
                 {
                     case 1:
+                        timerMeasure.Start();
                         Amplitud();
+                        Console.WriteLine($"Tiempo: " + timerMeasure.Elapsed.Minutes  + ":" + timerMeasure.Elapsed.Seconds + " segundos");
                         break;
                     case 2:
+                        timerMeasure.Start();
                         Profundidad();
+                        Console.WriteLine($"Tiempo: " + timerMeasure.Elapsed.Minutes + ":" + timerMeasure.Elapsed.Seconds + " segundos");
                         break;
                     case 3:
+                        timerMeasure.Start();
                         ProfundidadIterativa();
+                        Console.WriteLine($"Tiempo: " + timerMeasure.Elapsed.Minutes + ":" + timerMeasure.Elapsed.Seconds + " segundos");
                         break;
                     case 4:
                         Console.WriteLine("Adios");
@@ -38,6 +47,7 @@ namespace Practica2_Ejercicio1_8puzzle
                     default:
                         break;
                 }
+
 
             } while (opc != 4);
         }
@@ -92,9 +102,10 @@ namespace Practica2_Ejercicio1_8puzzle
         {
             //Puzzle Inicial
             //int[] puzzle_initial = generarPuzzleAleatorio();
-            int[] puzzle_initial = { 1, 0, 2, 3, 5, 4, 6, 7, 8 };
+            int[] puzzle_initial = { 0, 1, 2, 3, 5, 6, 4, 7, 8 };
 
             Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
+            Console.WriteLine("Puzzle Inicial");
             UninformedSearch ui = new UninformedSearch();
 
             List<Node> solution = ui.DeepFirstSearchIterative(root);
@@ -134,6 +145,7 @@ namespace Practica2_Ejercicio1_8puzzle
                 tablero[i] = posible;
                 numbersChosen.Add(posible);
             }
+
 
             return tablero;
         }

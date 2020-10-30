@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Practica2_Ejercicio1_8puzzle
@@ -30,7 +31,7 @@ namespace Practica2_Ejercicio1_8puzzle
                 OpenList.RemoveAt(0); //Sacarlo
 
                 currentNode.ExpandNode();
-                currentNode.PrintPuzzle();
+                //currentNode.PrintPuzzle();
 
                 for (int i = 0; i < currentNode.Children.Count; i++)
                 {
@@ -109,26 +110,28 @@ namespace Practica2_Ejercicio1_8puzzle
         public List<Node> DeepFirstSearchIterative(Node root)
         {
             List<Node> PathToSolution = new List<Node>();
-            List<Node> OpenList = new List<Node>(); //Lista que se puede expandir
-            List<Node> ClosedList = new List<Node>(); //Las que ya fueron vistas y expandidas
+            List<Node> OpenList; //Lista que se puede expandir
+            List<Node> ClosedList; //Las que ya fueron vistas y expandidas
             bool goalFound = false; //Se llegó a la meta
 
 
             int profundidad = 1;
             Node currentNode = root;
 
-            while (!goalFound && profundidad < 3)
+            while (!goalFound && profundidad < 40)
             {
-                currentNode.ExpandNode(); //  Est_abiertos.inicializar()
+                //currentNode.ExpandNode(); //  Est_abiertos.inicializar()
+                OpenList = new List<Node>(); //  Est_abiertos.inicializar()
+                ClosedList = new List<Node>(); //  Est_cerrados.inicializar()
                 OpenList.Add(root); //  Est_abiertos.insertar(Estado inicial)
-                currentNode = OpenList.Last(); //Actual ← Est_abiertos.primero()
+                currentNode = OpenList[0]; //Actual ← Est_abiertos.primero()
 
                 while(!goalFound && OpenList.Count > 0) //  mientras no es_final?(Actual) y no Est_abiertos.vacia?() hacer
                 {
-                    OpenList.RemoveAt(OpenList.Count - 1);
+                    OpenList.RemoveAt(OpenList.Count -1);
                     ClosedList.Add(currentNode);
 
-                    if(Profundidad(currentNode, root) < 3)
+                    if (Profundidad(currentNode, root) <= profundidad)
                     {
                         currentNode.ExpandNode();
                         currentNode.PrintPuzzle();
@@ -137,7 +140,7 @@ namespace Practica2_Ejercicio1_8puzzle
                         for (int i = 0; i < currentNode.Children.Count; i++)
                         {
 
-                            Node currentChild = currentNode.Children[i];
+                            Node currentChild = currentNode.Children[i];//Aqui es
 
                             //Aquí imprimiremos todos los estados
 
@@ -146,6 +149,7 @@ namespace Practica2_Ejercicio1_8puzzle
                                 Console.WriteLine("Goal Found.");
                                 goalFound = true;
                                 PathTrace(PathToSolution, currentChild);
+                                Console.Write("Profundidad alcanzada: " + profundidad.ToString() + "\n");
                                 //Trace path to root node
                             }
 
@@ -160,10 +164,7 @@ namespace Practica2_Ejercicio1_8puzzle
 
                         //OpenList.AddRange(currentNode.GetChildren());
                     }
-                    if(OpenList.Count > 0)
-                    {
-                        currentNode = OpenList.Last();
-                    }
+                    if(OpenList.Count > 0) currentNode = OpenList.Last();
                 }
                 profundidad++;
             }
