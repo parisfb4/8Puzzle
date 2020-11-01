@@ -134,7 +134,7 @@ namespace Practica2_Ejercicio1_8puzzle
                     if (Profundidad(currentNode, root) <= profundidad)
                     {
                         currentNode.ExpandNode();
-                        currentNode.PrintPuzzle();
+                        //currentNode.PrintPuzzle();
 
                         //INICIO
                         for (int i = 0; i < currentNode.Children.Count; i++)

@@ -76,8 +76,8 @@ namespace Practica2_Ejercicio1_8puzzle
         public void Profundidad()
         {
             //Puzzle Inicial
-            //int[] puzzle_initial = generarPuzzleAleatorio();
-            int[] puzzle_initial = {0,1,2,3,5,4,6,7,8};
+            int[] puzzle_initial = generarPuzzleAleatorio();
+            //int[] puzzle_initial = {0,1,2,3,5,4,6,7,8};
 
             Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
             UninformedSearch ui = new UninformedSearch();
@@ -101,8 +101,8 @@ namespace Practica2_Ejercicio1_8puzzle
         public void ProfundidadIterativa()
         {
             //Puzzle Inicial
-            //int[] puzzle_initial = generarPuzzleAleatorio();
-            int[] puzzle_initial = { 0, 1, 2, 3, 5, 6, 4, 7, 8 };
+            int[] puzzle_initial = generarPuzzleAleatorio();
+            //int[] puzzle_initial = { 1, 0, 2, 3, 5, 6, 4, 7, 8 };
 
             Node root = new Node(puzzle_initial);   //Envia el puzzle inicial a la clase
             Console.WriteLine("Puzzle Inicial");
